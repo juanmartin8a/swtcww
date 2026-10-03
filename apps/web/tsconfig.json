@@ -1,0 +1,10 @@
+{
+	"extends": "$app/tsconfig",
+	"compilerOptions": {
+		"rewriteRelativeImportExtensions": true,
+		"sourceMap": true,
+		"strict": true,
+		"types": ["./worker-configuration.d.ts", "$app/types"]
+	},
+	"include": ["src"]
+}
