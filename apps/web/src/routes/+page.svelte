@@ -4,10 +4,29 @@
 	let { data }: PageProps = $props();
 </script>
 
-<div class="flex h-screen w-screen flex-col justify-center bg-black text-4xl">
+<main class="quote-screen">
 	<p
-		class="self-center text-center font-clone-wars leading-[1.18] font-normal tracking-[0.015em] text-[#1379a6]"
+		class="quote text-left font-clone-wars leading-[1.18] font-normal tracking-[0.015em] text-[#1379a6]"
 	>
 		{data.quotation}
 	</p>
-</div>
+</main>
+
+<style>
+	.quote-screen {
+		display: flex;
+		min-height: 100svh;
+		align-items: center;
+		justify-content: center;
+		padding: 8svh 10vw;
+		background: black;
+	}
+
+	.quote {
+		width: fit-content;
+		max-width: min(100%, 22ch);
+		/* Keep the opening-card proportions, including on short landscape screens. */
+		font-size: min(5vw, 8svh);
+		overflow-wrap: anywhere;
+	}
+</style>
