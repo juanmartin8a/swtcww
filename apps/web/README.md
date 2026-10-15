@@ -20,6 +20,14 @@ bun x sv@0.17.0 create --template minimal --types ts --add prettier tailwindcss=
 
 ## Developing
 
+Create `.env.local` from `.env.example` and set `TURSO_DATABASE_URL` and `TURSO_TOKEN`
+to your Turso database URL and read-only token. These variables are only used on
+the server. For Cloudflare deployments, configure the same variables as Worker secrets.
+
+The home page reads one random, non-empty `quotation` from `opening_quotations`
+on each page load or refresh. It stays unchanged while the page is open; a new
+random draw can occasionally select the same quote again.
+
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```sh

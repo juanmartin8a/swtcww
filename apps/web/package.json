@@ -39,5 +39,8 @@
 	"imports": {
 		"#lib": "./src/lib/index.js",
 		"#lib/*": "./src/lib/*"
+	},
+	"dependencies": {
+		"@libsql/client": "^0.18.0"
 	}
 }

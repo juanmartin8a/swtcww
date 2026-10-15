@@ -2,5 +2,5 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-clone-wars: 'Libre Franklin', Arial, sans-serif;
+	--font-clone-wars: 'Libre Franklin', Arial, sans-serif;
 }
