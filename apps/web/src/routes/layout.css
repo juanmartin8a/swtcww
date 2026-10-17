@@ -4,3 +4,8 @@
 @theme {
 	--font-clone-wars: 'Libre Franklin', Arial, sans-serif;
 }
+
+html,
+body {
+	background-color: black;
+}
