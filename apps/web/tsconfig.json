@@ -1,6 +1,8 @@
 {
 	"extends": "$app/tsconfig",
 	"compilerOptions": {
+		// Wrangler types reference generated Worker JavaScript; only check our TypeScript sources.
+		"checkJs": false,
 		"rewriteRelativeImportExtensions": true,
 		"sourceMap": true,
 		"strict": true,
