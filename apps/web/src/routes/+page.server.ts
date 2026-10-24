@@ -14,26 +14,31 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 		authToken: TURSO_TOKEN
 	});
 
-	let quotation;
+	let quote;
 
 	try {
 		const result = await client.execute(`
-			SELECT quotation
+			SELECT quotation, season, episode, episode_name
 			FROM opening_quotations
 			WHERE quotation IS NOT NULL AND length(trim(quotation)) > 0
 			ORDER BY random()
 			LIMIT 1
 		`);
-		quotation = result.rows[0]?.quotation;
+		quote = result.rows[0];
 	} catch {
 		error(503, 'Unable to load a quote right now. Please refresh to try again.');
 	} finally {
 		client.close();
 	}
 
-	if (typeof quotation !== 'string' || !quotation.trim()) {
+	if (typeof quote?.quotation !== 'string' || !quote.quotation.trim()) {
 		error(404, 'No quotes are available yet.');
 	}
 
-	return { quotation };
+	return {
+		quotation: quote.quotation,
+		season: Number(quote.season),
+		episode: Number(quote.episode),
+		episodeName: String(quote.episode_name)
+	};
 };

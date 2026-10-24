@@ -22,6 +22,12 @@ The home page reads one random, non-empty `quotation` from `opening_quotations`
 on each page load or refresh. It stays unchanged while the page is open; a new
 random draw can occasionally select the same quote again.
 
+The season, episode number, and episode name sit below the quote, hidden until
+hovered or focused with the keyboard. They fade into view; click or press Enter/Space
+to toggle whether they stay visible after the cursor leaves. Hover always reveals
+the details when using a mouse; touch devices use taps to show or hide them.
+Reduced-motion preferences disable the fade.
+
 ## Validate and preview
 
 ```sh
@@ -56,8 +62,9 @@ bun run deploy --secrets-file .env.production
 The `--secrets-file` option uploads both secrets alongside the initial Worker code.
 Keep `.env.production` out of version control. Local `.env.local` values are **not**
 uploaded automatically.
-The database must already contain an `opening_quotations` table with a non-empty
-`quotation` column. Use a read-only Turso token.
+The database must already contain an `opening_quotations` table with `quotation`,
+`season`, `episode`, and `episode_name` columns. Only non-empty quotations are shown.
+Use a read-only Turso token.
 
 For subsequent code deployments, run `bun run deploy`; existing Worker secrets
 are preserved. To update individual secrets, use the interactive prompts:
