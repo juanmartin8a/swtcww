@@ -48,6 +48,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>SWTCWW</title>
+</svelte:head>
+
 <main class="quote-screen">
 	<div class="quote-card font-clone-wars text-[#1379a6]">
 		<p {@attach fitQuote} class="quote text-left leading-[1.18] font-normal tracking-[0.015em]">
