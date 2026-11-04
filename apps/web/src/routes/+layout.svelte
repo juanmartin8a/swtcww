@@ -44,6 +44,11 @@
 		padding: 0.5rem 0;
 		font-size: 0.875rem;
 		letter-spacing: 0.04em;
+		transition: opacity 200ms ease;
+	}
+
+	a:hover {
+		opacity: 0.65;
 	}
 
 	a:focus-visible {
@@ -52,7 +57,8 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.site-header {
+		.site-header,
+		a {
 			transition: none;
 		}
 	}
