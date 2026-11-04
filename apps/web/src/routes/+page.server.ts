@@ -5,9 +5,7 @@ import type { PageServerLoad } from './$types';
 
 export const prerender = false;
 
-export const load: PageServerLoad = async ({ setHeaders }) => {
-	setHeaders({ 'cache-control': 'no-store' });
-
+async function loadQuote() {
 	// Use HTTP so the database client also works in Cloudflare Workers.
 	const client = createClient({
 		url: TURSO_DATABASE_URL.replace(/^libsql:/, 'https:'),
@@ -41,4 +39,15 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 		episode: Number(quote.episode),
 		episodeName: String(quote.episode_name)
 	};
+}
+
+export const load: PageServerLoad = ({ setHeaders }) => {
+	setHeaders({ 'cache-control': 'no-store' });
+
+	// Stream the quote so the black page can render while the database responds.
+	const quote = loadQuote();
+	// Handle early failures before SvelteKit attaches its streaming handler.
+	void quote.catch(() => {});
+
+	return { quote };
 };

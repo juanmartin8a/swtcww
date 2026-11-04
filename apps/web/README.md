@@ -22,6 +22,11 @@ The home page reads one random, non-empty `quotation` from `opening_quotations`
 on each page load or refresh. It stays unchanged while the page is open; a new
 random draw can occasionally select the same quote again.
 
+The black background renders immediately while the database query streams in.
+Once the quote and its font are ready, the content fades in over 600ms. Loading
+failures show a message on the same background. Reduced-motion preferences disable
+the animation.
+
 The season, episode number, and episode name sit below the quote, hidden until
 hovered or focused with the keyboard. They fade into view; click or press Enter/Space
 to toggle whether they stay visible after the cursor leaves. Hover always reveals
