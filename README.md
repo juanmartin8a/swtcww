@@ -26,7 +26,14 @@ I used the same eyedropper on the screenshot's black background. The site uses `
 
 ## Sources
 
-The following sources were consulted while researching the typefaces used in *Star Wars*, particularly the films' opening text, "A long time ago in a galaxy far, far away...."
+### Quotes and Episode Information
+
+The opening quotes and their corresponding episode information were sourced from Wikiquote.
+
+1. [Wikiquote — Star Wars: The Clone Wars](https://en.wikiquote.org/wiki/Star_Wars:_The_Clone_Wars)
+
+### A long time ago in a galaxy far, far away....
+The following sources were consulted while researching the typefaces used in *Star Wars*, particularly those used for the films' opening line, "A long time ago in a galaxy far, far away....", which served as a visual reference for recreating *The Clone Wars*' opening quotes.
 
 1. [DaFont — In a Far Far Away Galaxy](https://www.dafont.com/forum/read/527904/in-a-far-far-away-galaxy)
 2. [Star Wars Visual Comparisons — “A Long Time Ago” Preface Changes](https://starwarsviscomp.wordpress.com/2019/11/16/alta-preface-changes/)
