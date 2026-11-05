@@ -23,15 +23,27 @@ on each page load or refresh. It stays unchanged while the page is open; a new
 random draw can occasionally select the same quote again.
 
 The black background renders immediately while the database query streams in.
-Once the quote and its font are ready, the content fades in over 600ms. Loading
-failures show a message on the same background. Reduced-motion preferences disable
-the animation.
+Once the quote and its font are ready, the content immediately fades in evenly over
+1500ms. This matches the opening's linear fade measured from the reference recording.
+Loading failures show a message on the same background. Reduced-motion preferences
+disable the animation.
 
 The season, episode number, and episode name sit below the quote, hidden until
 hovered or focused with the keyboard. They fade into view; click or press Enter/Space
 to toggle whether they stay visible after the cursor leaves. Hover always reveals
 the details when using a mouse; touch devices use taps to show or hide them.
 Reduced-motion preferences disable the fade.
+
+The yellow **Export wallpaper** action also appears on hover or keyboard focus.
+It opens a dialog for the current quote with a live image preview and PNG download.
+The preview border follows the image's aspect ratio, fitting within the available
+width and maximum height without scrolling. Episode information is optional and
+starts disabled. It sits below the centered quote without affecting the quote's
+position or size. Dimensions default to the browser's screen size multiplied by its pixel
+density, an estimate that can be affected by browser zoom. Uncheck **Use device
+dimensions** to enter a custom width and height in pixels. Exports support up to
+8192 pixels per side and 32 megapixels total. Preview and download share the same
+renderer, font, and color palette; all image generation stays in the browser.
 
 ## Validate and preview
 

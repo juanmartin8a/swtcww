@@ -3,6 +3,58 @@
 
 @theme {
 	--font-clone-wars: 'Libre Franklin', Arial, sans-serif;
+	--color-quote: #1379a6;
+	--color-episode: #fefd02;
+}
+
+@layer components {
+	.text-button {
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: var(--color-episode);
+		font: inherit;
+		letter-spacing: 0.04em;
+		text-align: inherit;
+		cursor: pointer;
+	}
+
+	.text-button:focus-visible {
+		outline: 1px solid currentColor;
+		outline-offset: 6px;
+	}
+
+	.text-button:hover:not(:disabled) {
+		text-decoration: underline;
+		text-underline-offset: 0.25em;
+	}
+
+	.text-button:disabled {
+		opacity: 0.45;
+		cursor: default;
+	}
+
+	.hover-reveal {
+		opacity: 0;
+		transition: opacity 250ms ease;
+	}
+
+	.hover-reveal.revealed,
+	.hover-reveal:focus-visible {
+		opacity: 1;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.hover-reveal:hover {
+			opacity: 1;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hover-reveal {
+			transition: none;
+		}
+	}
 }
 
 html,
