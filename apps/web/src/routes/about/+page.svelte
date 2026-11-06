@@ -153,6 +153,12 @@
 		margin: 0 auto;
 	}
 
+	h1,
+	h2,
+	h3 {
+		color: inherit;
+	}
+
 	h1 {
 		margin-bottom: 2rem;
 	}
