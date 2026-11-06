@@ -13,7 +13,7 @@
 
 <header class="site-header font-clone-wars">
 	<nav aria-label="Main navigation">
-		<a href={resolve('/about')}>About</a>
+		<a href={resolve('/about')}><span class="action-label">About</span></a>
 	</nav>
 </header>
 
@@ -27,8 +27,8 @@
 		left: 0;
 		width: 100%;
 		padding: 1.5rem 10vw;
-		background: black;
-		color: #1379a6;
+		background: var(--color-background);
+		color: var(--color-quote);
 		text-align: right;
 		opacity: 0;
 		transition: opacity 250ms ease;
@@ -41,24 +41,13 @@
 
 	a {
 		display: inline-block;
-		padding: 0.5rem 0;
 		font-size: 0.875rem;
+		line-height: 22px;
 		letter-spacing: 0.04em;
-		transition: opacity 200ms ease;
-	}
-
-	a:hover {
-		opacity: 0.65;
-	}
-
-	a:focus-visible {
-		outline: 1px solid currentColor;
-		outline-offset: 6px;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.site-header,
-		a {
+		.site-header {
 			transition: none;
 		}
 	}

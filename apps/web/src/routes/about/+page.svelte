@@ -134,7 +134,7 @@
 		<p>
 			<a href="https://github.com/juanmartin8a/swtcww">https://github.com/juanmartin8a/swtcww</a>
 		</p>
-		<a href={resolve('/')}>Back to the quotes</a>
+		<a href={resolve('/')}><span class="action-label">Back to the quotes</span></a>
 	</article>
 </main>
 
@@ -144,7 +144,7 @@
 		min-height: 100svh;
 		align-items: center;
 		padding: 8rem 10vw;
-		color: #1379a6;
+		color: var(--color-quote);
 	}
 
 	article {
@@ -155,26 +155,16 @@
 
 	h1 {
 		margin-bottom: 2rem;
-		font-size: clamp(1.75rem, 4vw, 2.5rem);
-		font-weight: 400;
-		line-height: 1.25;
-		color: #fefd02;
 	}
 
 	h2 {
 		margin-top: 3rem;
 		margin-bottom: 1rem;
-		font-size: 1.75rem;
-		font-weight: 400;
-		color: #fefd02;
 	}
 
 	h3 {
 		margin-top: 2rem;
 		margin-bottom: 0.75rem;
-		font-size: 1.125rem;
-		font-weight: 500;
-		color: #fefd02;
 	}
 
 	ol {
@@ -196,24 +186,14 @@
 
 	a {
 		text-decoration: underline;
-		text-underline-offset: 0.25em;
 	}
 
 	article > a {
 		display: inline-block;
 		margin-top: 1rem;
-		color: #fefd02;
+		color: var(--color-episode);
 		font-size: 0.875rem;
 		letter-spacing: 0.04em;
 		text-decoration: none;
-	}
-
-	article > a:hover {
-		text-decoration: underline;
-	}
-
-	a:focus-visible {
-		outline: 1px solid currentColor;
-		outline-offset: 6px;
 	}
 </style>

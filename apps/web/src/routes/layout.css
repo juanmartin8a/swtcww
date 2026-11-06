@@ -5,6 +5,69 @@
 	--font-clone-wars: 'Libre Franklin', Arial, sans-serif;
 	--color-quote: #1379a6;
 	--color-episode: #fefd02;
+	--color-background: #000000;
+}
+
+:root {
+	--quote-width-scale: 0.05;
+	--quote-height-scale: 0.08;
+	--quote-line-length: 22;
+	--quote-line-height: 1.18;
+	--quote-tracking: 0.015;
+	--episode-font-min: 12;
+	--episode-font-max: 16;
+	--episode-width-scale: 0.014;
+	--episode-gap-min: 6;
+	--episode-gap-max: 32;
+	--episode-gap-width-scale: 0.017;
+	--quote-action-gap: 24;
+	--episode-line-height: 1.6;
+	--episode-tracking: 0.04;
+	--episode-number-scale: 0.8;
+	--episode-number-tracking: 0.08;
+}
+
+@layer base {
+	h1,
+	h2,
+	h3 {
+		color: var(--color-episode);
+		font-weight: var(--font-weight-normal);
+	}
+
+	h1 {
+		font-size: var(--text-3xl);
+		line-height: var(--text-3xl--line-height);
+	}
+
+	h2 {
+		font-size: var(--text-2xl);
+		line-height: var(--text-2xl--line-height);
+	}
+
+	h3 {
+		font-size: var(--text-xl);
+		font-weight: var(--font-weight-medium);
+		line-height: var(--text-xl--line-height);
+	}
+
+	@media (min-width: 40rem) {
+		h1 {
+			font-size: var(--text-4xl);
+			line-height: var(--text-4xl--line-height);
+		}
+	}
+
+	a,
+	button {
+		text-underline-offset: 0.25em;
+	}
+
+	a:focus-visible,
+	button:focus-visible {
+		outline: 1px solid currentColor;
+		outline-offset: 6px;
+	}
 }
 
 @layer components {
@@ -14,19 +77,24 @@
 		background: transparent;
 		color: var(--color-episode);
 		font: inherit;
-		letter-spacing: 0.04em;
+		letter-spacing: inherit;
 		text-align: inherit;
 		cursor: pointer;
 	}
 
-	.text-button:focus-visible {
-		outline: 1px solid currentColor;
-		outline-offset: 6px;
+	.action-label {
+		display: inline-block;
+		text-decoration-thickness: 1px;
+		cursor: pointer;
 	}
 
-	.text-button:hover:not(:disabled) {
-		text-decoration: underline;
-		text-underline-offset: 0.25em;
+	.action-label:hover {
+		text-decoration-line: underline;
+	}
+
+	.text-button:disabled .action-label {
+		text-decoration-line: none;
+		cursor: default;
 	}
 
 	.text-button:disabled {
@@ -59,5 +127,5 @@
 
 html,
 body {
-	background-color: black;
+	background-color: var(--color-background);
 }

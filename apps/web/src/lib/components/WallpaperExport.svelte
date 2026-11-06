@@ -1,19 +1,21 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 	import type { Quote } from '#lib/quote.js';
+	import { loadQuoteFont, WALLPAPER_EXPORT_LABEL } from '#lib/quote-layout.js';
 	import {
 		MAX_WALLPAPER_DIMENSION,
 		MAX_WALLPAPER_PIXELS,
 		renderWallpaper,
 		validWallpaperDimensions,
-		type WallpaperOptions
+		type WallpaperOptions,
+		type WallpaperDimensions
 	} from '#lib/wallpaper.js';
 
 	let { quote }: { quote: Quote } = $props();
 	let dialog: HTMLDialogElement;
 	let exportCanvas = $state<HTMLCanvasElement>();
 	let open = $state(false);
-	let dimensions = $state<{ width: number | undefined; height: number | undefined }>({
+	let dimensions = $state<WallpaperDimensions>({
 		width: 1920,
 		height: 1080
 	});
@@ -74,13 +76,7 @@
 				}
 			}
 
-			// Match the page's final font before measuring or drawing any text.
-			void document.fonts
-				.load(
-					`400 16px ${getComputedStyle(canvas).fontFamily}`,
-					quote.quotation + quote.episodeName
-				)
-				.then(draw, draw);
+			void loadQuoteFont(canvas, quote).then(draw, draw);
 		}
 
 		return () => {
@@ -123,8 +119,10 @@
 >
 	{#if open}
 		<header>
-			<h2 id="wallpaper-title">Export wallpaper</h2>
-			<button type="button" class="text-button" onclick={() => dialog.close()}>Close</button>
+			<h2 id="wallpaper-title">{WALLPAPER_EXPORT_LABEL}</h2>
+			<button type="button" class="text-button" onclick={() => dialog.close()}>
+				<span class="action-label">Close</span>
+			</button>
 		</header>
 
 		<div class="preview-space" aria-busy={!previewReady && !!options}>
@@ -141,7 +139,7 @@
 			</div>
 		</div>
 
-		<canvas bind:this={exportCanvas} class="export-canvas" hidden></canvas>
+		<canvas bind:this={exportCanvas} hidden></canvas>
 
 		<fieldset disabled={exporting}>
 			<div class="options">
@@ -196,20 +194,24 @@
 				disabled={!options || !previewReady || exporting}
 				onclick={downloadWallpaper}
 			>
-				{exporting ? 'Creating PNG…' : 'Download PNG'}
+				<span class="action-label">{exporting ? 'Creating PNG…' : 'Download PNG'}</span>
 			</button>
 		</footer>
 	{/if}
 </dialog>
 
 <style>
+	dialog,
+	.preview-frame {
+		border: 1px solid color-mix(in srgb, var(--color-quote) 45%, var(--color-background));
+		background: var(--color-background);
+	}
+
 	dialog {
 		width: min(48rem, calc(100% - 2rem));
 		max-height: calc(100svh - 2rem);
 		margin: auto;
 		padding: clamp(1.25rem, 4vw, 2.5rem);
-		border: 1px solid color-mix(in srgb, var(--color-quote) 45%, black);
-		background: black;
 		color: var(--color-quote);
 		font-size: 0.875rem;
 		line-height: 1.6;
@@ -218,7 +220,7 @@
 	}
 
 	dialog::backdrop {
-		background: rgb(0 0 0 / 85%);
+		background: color-mix(in srgb, var(--color-background) 85%, transparent);
 	}
 
 	header,
@@ -233,12 +235,6 @@
 		margin-bottom: 1.5rem;
 	}
 
-	h2 {
-		color: var(--color-episode);
-		font-size: clamp(1rem, 3vw, 1.25rem);
-		font-weight: 400;
-	}
-
 	.preview-space {
 		--preview-max-height: clamp(10rem, 40svh, 26rem);
 		container-type: inline-size;
@@ -249,14 +245,12 @@
 	}
 
 	.preview-frame {
-		/* Fit both bounds while preserving the image's proportions and border. */
+		/* Reserve both border pixels so extreme aspect ratios stay inside the preview. */
 		--preview-height: min(var(--preview-max-height), calc((100cqw - 2px) / var(--preview-ratio)));
 		box-sizing: content-box;
 		width: calc(var(--preview-height) * var(--preview-ratio));
 		height: var(--preview-height);
 		margin-inline: auto;
-		border: 1px solid color-mix(in srgb, var(--color-quote) 45%, black);
-		background: black;
 	}
 
 	canvas {
@@ -268,10 +262,6 @@
 
 	canvas.ready {
 		visibility: visible;
-	}
-
-	.export-canvas {
-		display: none;
 	}
 
 	fieldset {
@@ -290,7 +280,8 @@
 
 	.checkbox-label {
 		display: flex;
-		min-height: 1.75rem;
+		min-height: 22px;
+		line-height: 22px;
 		align-items: center;
 		gap: 0.625rem;
 		cursor: pointer;
