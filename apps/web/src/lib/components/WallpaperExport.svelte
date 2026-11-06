@@ -24,8 +24,21 @@
 	let previewReady = $state(false);
 	let exporting = $state(false);
 	let error = $state('');
+	let viewportWidth = $state(0);
+	let viewportHeight = $state(0);
 	const options = $derived(
-		validWallpaperDimensions(dimensions) ? { ...dimensions, includeEpisodeInfo } : undefined
+		validWallpaperDimensions(dimensions) && viewportWidth > 0 && viewportHeight > 0
+			? {
+					...dimensions,
+					includeEpisodeInfo,
+					// Scale a viewport-sized composition so high-resolution exports preserve the home layout.
+					layoutScale: Math.max(
+						1,
+						dimensions.width / viewportWidth,
+						dimensions.height / viewportHeight
+					)
+				}
+			: undefined
 	);
 
 	$effect(() => {
@@ -110,6 +123,8 @@
 		}
 	}
 </script>
+
+<svelte:window bind:innerWidth={viewportWidth} bind:innerHeight={viewportHeight} />
 
 <dialog
 	bind:this={dialog}
@@ -257,6 +272,8 @@
 		display: block;
 		width: 100%;
 		height: 100%;
+		/* Inherited dialog tracking also affects canvas measurements; the renderer sets its own. */
+		letter-spacing: normal;
 		visibility: hidden;
 	}
 

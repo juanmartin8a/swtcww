@@ -2,12 +2,13 @@ import type { Quote } from '#lib/quote.js';
 import { layoutQuote, setQuoteFont } from '#lib/quote-layout.js';
 
 export const MAX_WALLPAPER_DIMENSION = 8192;
-export const MAX_WALLPAPER_PIXELS = 32_000_000;
+export const MAX_WALLPAPER_PIXELS = 16_000_000;
 
 export type WallpaperOptions = {
 	width: number;
 	height: number;
 	includeEpisodeInfo: boolean;
+	layoutScale: number;
 };
 
 export type WallpaperDimensions = { width: number | undefined; height: number | undefined };
@@ -32,17 +33,19 @@ export function validWallpaperDimensions(
 export function renderWallpaper(
 	canvas: HTMLCanvasElement,
 	quote: Quote,
-	{ width, height, includeEpisodeInfo }: WallpaperOptions,
+	{ width: outputWidth, height: outputHeight, includeEpisodeInfo, layoutScale }: WallpaperOptions,
 	scale = 1
 ) {
-	if (!validWallpaperDimensions({ width, height }))
+	if (!validWallpaperDimensions({ width: outputWidth, height: outputHeight }))
 		throw new Error('Invalid wallpaper dimensions.');
 
-	canvas.width = Math.max(1, Math.round(width * scale));
-	canvas.height = Math.max(1, Math.round(height * scale));
+	canvas.width = Math.max(1, Math.round(outputWidth * scale));
+	canvas.height = Math.max(1, Math.round(outputHeight * scale));
 	const context = canvas.getContext('2d');
 	if (!context) throw new Error('Your browser could not create the wallpaper.');
 
+	const width = outputWidth / layoutScale;
+	const height = outputHeight / layoutScale;
 	const style = getComputedStyle(canvas);
 	const {
 		fontFamily,

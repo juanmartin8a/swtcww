@@ -42,14 +42,16 @@ starts disabled. It sits below the centered quote without affecting the quote's
 position or size. Dimensions default to the browser's screen size multiplied by its pixel
 density, an estimate that can be affected by browser zoom. Uncheck **Use device
 dimensions** to enter a custom width and height in pixels. Exports support up to
-8192 pixels per side and 32 megapixels total. Preview and download share the same
+8192 pixels per side and 16 megapixels total. Preview and download share the same
 renderer, font, and color palette; all image generation stays in the browser.
 The home page and wallpaper renderer read the same typography variables in
 `src/routes/layout.css`: quote size, line length, line height, letter spacing,
-episode detail sizes, and spacing. At matching width and height, all three views
-use the same wrapping and placement. The quote scales with the output dimensions;
-episode text uses its own 12–16px size range instead of shrinking with the quote.
-The preview scales the finished composition to fit its frame.
+episode detail sizes, and spacing. Exports larger than the viewport use a composition
+that fits within the viewport at the requested aspect ratio, then scale it uniformly
+to the output resolution. This preserves the home page's typography, wrapping, and
+spacing at higher pixel densities. Smaller exports use their requested dimensions
+directly. Within that layout, episode text keeps its own 12–16px size range instead
+of shrinking with the quote. The preview scales the finished composition to fit its frame.
 
 ## Validate and preview
 
