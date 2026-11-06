@@ -1,11 +1,11 @@
 import { episodeLabel, type Quote } from '#lib/quote.js';
 
-export const WALLPAPER_EXPORT_LABEL = 'Export wallpaper';
+export const IMAGE_EXPORT_LABEL = 'Export image';
 
 export function loadQuoteFont(element: Element, quote: Quote) {
 	return document.fonts.load(
 		`400 16px ${getComputedStyle(element).fontFamily}`,
-		quote.quotation + quote.episodeName + episodeLabel(quote) + WALLPAPER_EXPORT_LABEL
+		quote.quotation + quote.episodeName + episodeLabel(quote) + IMAGE_EXPORT_LABEL
 	);
 }
 
@@ -123,7 +123,7 @@ export function layoutQuote(
 			detailSize * typography.numberScale,
 			typography.numberTracking
 		);
-		const exportWidth = context.measureText(WALLPAPER_EXPORT_LABEL).width;
+		const exportWidth = context.measureText(IMAGE_EXPORT_LABEL).width;
 		// Leave the same room for the home-screen export action when wrapping details.
 		const detailWidth =
 			fitted.width > exportWidth + typography.actionGap

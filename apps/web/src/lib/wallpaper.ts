@@ -37,12 +37,12 @@ export function renderWallpaper(
 	scale = 1
 ) {
 	if (!validWallpaperDimensions({ width: outputWidth, height: outputHeight }))
-		throw new Error('Invalid wallpaper dimensions.');
+		throw new Error('Invalid image dimensions.');
 
 	canvas.width = Math.max(1, Math.round(outputWidth * scale));
 	canvas.height = Math.max(1, Math.round(outputHeight * scale));
 	const context = canvas.getContext('2d');
-	if (!context) throw new Error('Your browser could not create the wallpaper.');
+	if (!context) throw new Error('Your browser could not create the image.');
 
 	const width = outputWidth / layoutScale;
 	const height = outputHeight / layoutScale;

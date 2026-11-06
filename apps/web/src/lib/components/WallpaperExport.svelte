@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 	import type { Quote } from '#lib/quote.js';
-	import { loadQuoteFont, WALLPAPER_EXPORT_LABEL } from '#lib/quote-layout.js';
+	import { loadQuoteFont, IMAGE_EXPORT_LABEL } from '#lib/quote-layout.js';
 	import {
 		MAX_WALLPAPER_DIMENSION,
 		MAX_WALLPAPER_PIXELS,
@@ -107,7 +107,7 @@
 		try {
 			renderWallpaper(canvas, quote, settings);
 			const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
-			if (!blob) throw new Error('Unable to encode the wallpaper.');
+			if (!blob) throw new Error('Unable to encode the image.');
 			const url = URL.createObjectURL(blob);
 			const link = document.createElement('a');
 			link.href = url;
@@ -115,7 +115,7 @@
 			link.click();
 			window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 		} catch {
-			error = 'Unable to download the wallpaper. Try smaller dimensions.';
+			error = 'Unable to download the image. Try smaller dimensions.';
 		} finally {
 			canvas.width = 0;
 			canvas.height = 0;
@@ -134,7 +134,7 @@
 >
 	{#if open}
 		<header>
-			<h2 id="wallpaper-title">{WALLPAPER_EXPORT_LABEL}</h2>
+			<h2 id="wallpaper-title">{IMAGE_EXPORT_LABEL}</h2>
 			<button type="button" class="text-button" onclick={() => dialog.close()}>
 				<span class="action-label">Close</span>
 			</button>
@@ -148,7 +148,7 @@
 				<canvas
 					{@attach (node) => updatePreview(node, options)}
 					class:ready={previewReady}
-					aria-label={`Wallpaper preview: ${quote.quotation}${includeEpisodeInfo ? ` — ${quote.episodeName}, season ${quote.season}, episode ${quote.episode}` : ''}`}
+					aria-label={`Image preview: ${quote.quotation}${includeEpisodeInfo ? ` — ${quote.episodeName}, season ${quote.season}, episode ${quote.episode}` : ''}`}
 					>{quote.quotation}</canvas
 				>
 			</div>

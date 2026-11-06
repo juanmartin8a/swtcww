@@ -1,7 +1,7 @@
 <script lang="ts">
 	import WallpaperExport from '#lib/components/WallpaperExport.svelte';
 	import { episodeLabel, type Quote } from '#lib/quote.js';
-	import { layoutQuote, loadQuoteFont, WALLPAPER_EXPORT_LABEL } from '#lib/quote-layout.js';
+	import { layoutQuote, loadQuoteFont, IMAGE_EXPORT_LABEL } from '#lib/quote-layout.js';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -98,7 +98,7 @@
 					onclick={() => wallpaperExport?.showDialog()}
 					aria-haspopup="dialog"
 				>
-					<span class="export-label action-label">{WALLPAPER_EXPORT_LABEL}</span>
+					<span class="export-label action-label">{IMAGE_EXPORT_LABEL}</span>
 				</button>
 			</div>
 		</div>

@@ -34,7 +34,7 @@ to toggle whether they stay visible after the cursor leaves. Hover always reveal
 the details when using a mouse; touch devices use taps to show or hide them.
 Reduced-motion preferences disable the fade.
 
-The blue **Export wallpaper** action also appears on hover or keyboard focus.
+The blue **Export image** action also appears on hover or keyboard focus.
 It opens a dialog for the current quote with a live image preview and PNG download.
 The preview border follows the image's aspect ratio, fitting within the available
 width and maximum height without scrolling. Episode information is optional and
@@ -44,7 +44,7 @@ density, an estimate that can be affected by browser zoom. Uncheck **Use device
 dimensions** to enter a custom width and height in pixels. Exports support up to
 8192 pixels per side and 16 megapixels total. Preview and download share the same
 renderer, font, and color palette; all image generation stays in the browser.
-The home page and wallpaper renderer read the same typography variables in
+The home page and image renderer read the same typography variables in
 `src/routes/layout.css`: quote size, line length, line height, letter spacing,
 episode detail sizes, and spacing. Exports larger than the viewport use a composition
 that fits within the viewport at the requested aspect ratio, then scale it uniformly
