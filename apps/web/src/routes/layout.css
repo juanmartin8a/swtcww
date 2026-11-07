@@ -109,17 +109,19 @@
 
 	.hover-reveal.revealed,
 	.hover-reveal:focus-visible {
-		opacity: 1;
+		/* User interaction takes precedence over the interference animation. */
+		opacity: 1 !important;
 	}
 
 	@media (hover: hover) and (pointer: fine) {
 		.hover-reveal:hover {
-			opacity: 1;
+			opacity: 1 !important;
 		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
 		.hover-reveal {
+			opacity: 1;
 			transition: none;
 		}
 	}

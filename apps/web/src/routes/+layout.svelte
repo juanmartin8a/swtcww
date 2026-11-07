@@ -2,8 +2,13 @@
 	import './layout.css';
 	import favicon from '#lib/assets/favicon.png';
 	import { resolve } from '$app/paths';
+	import { setContext } from 'svelte';
+	import { createHologram, HOLOGRAM_CONTEXT } from '#lib/hologram.js';
 
 	let { children } = $props();
+
+	const hologram = createHologram();
+	setContext(HOLOGRAM_CONTEXT, hologram);
 </script>
 
 <svelte:head>
@@ -11,7 +16,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<header class="site-header font-clone-wars">
+<header class="site-header font-clone-wars" {@attach hologram.register}>
 	<nav aria-label="Main navigation">
 		<a href={resolve('/about')}><span class="action-label">About</span></a>
 	</nav>
@@ -31,12 +36,14 @@
 		color: var(--color-quote);
 		text-align: right;
 		opacity: 0;
-		transition: opacity 250ms ease;
+		transition: opacity 1500ms linear;
 	}
 
 	.site-header:hover,
 	.site-header:focus-within {
-		opacity: 1;
+		/* Keep navigation visible while the user is interacting with it. */
+		opacity: 1 !important;
+		transition-duration: 250ms;
 	}
 
 	a {
@@ -49,6 +56,10 @@
 	@media (prefers-reduced-motion: reduce) {
 		.site-header {
 			transition: none;
+		}
+
+		:global(:where(body:has(.quote-screen.ready))) .site-header {
+			opacity: 1;
 		}
 	}
 </style>

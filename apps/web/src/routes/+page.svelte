@@ -1,5 +1,8 @@
 <script lang="ts">
 	import WallpaperExport from '#lib/components/WallpaperExport.svelte';
+	import HologramEffect from '#lib/components/Hologram.svelte';
+	import { getContext } from 'svelte';
+	import { HOLOGRAM_CONTEXT, type Hologram } from '#lib/hologram.js';
 	import { episodeLabel, type Quote } from '#lib/quote.js';
 	import { layoutQuote, loadQuoteFont, IMAGE_EXPORT_LABEL } from '#lib/quote-layout.js';
 	import type { PageProps } from './$types';
@@ -10,6 +13,8 @@
 	let quoteReady = $state(false);
 	let measurementCanvas = $state<HTMLCanvasElement>();
 	let composition = $state<ReturnType<typeof layoutQuote>>();
+	let quoteCard = $state<HTMLDivElement>();
+	const hologram = getContext<Hologram>(HOLOGRAM_CONTEXT);
 
 	function toggleDetails() {
 		detailsPinned = !detailsPinned;
@@ -59,10 +64,11 @@
 	{/each}
 {/snippet}
 
-<main class="quote-screen">
+<main class="quote-screen" class:ready={quoteReady}>
 	{#await data.quote then quote}
 		<canvas bind:this={measurementCanvas} hidden></canvas>
 		<div
+			bind:this={quoteCard}
 			class="quote-card font-clone-wars text-quote"
 			class:ready={quoteReady}
 			style:--quote-font-size={composition ? `${composition.fontSize}px` : undefined}
@@ -79,6 +85,7 @@
 			</p>
 			<div class="quote-actions">
 				<button
+					{@attach hologram.register}
 					type="button"
 					class="episode-details text-button hover-reveal"
 					class:revealed={detailsPinned}
@@ -93,6 +100,7 @@
 					</span>
 				</button>
 				<button
+					{@attach hologram.register}
 					type="button"
 					class="export-button text-button hover-reveal"
 					onclick={() => wallpaperExport?.showDialog()}
@@ -102,6 +110,7 @@
 				</button>
 			</div>
 		</div>
+		<HologramEffect ready={quoteReady} quote={quoteCard} />
 		<WallpaperExport {quote} bind:this={wallpaperExport} />
 	{:catch error}
 		<p class="load-error font-clone-wars" role="alert">
